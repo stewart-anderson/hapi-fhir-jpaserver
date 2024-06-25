@@ -17,7 +17,7 @@
         <version>7.2.1</version>
     </parent>
 
-    <artifactId>hapi-fhir-jpaserver-starter</artifactId>
+    <artifactId>hapi-fhir-jpaserver</artifactId>
     <packaging>war</packaging>
 
     <properties>
@@ -608,7 +608,7 @@
         <!-- For the Tomcat WAR approach use:                             -->
         <!-- mvn clean package -DskipTests && java -jar ./target/ROOT.war -->
         <!--                                                              -->
-        <!-- NEXT: Browse to http://localhost:8080/fhir                   -->
+        <!-- NEXT: Browse to http://localhost:8080/hapi-fhir-jpaserver                   -->
         <!--                                                              -->
         <profile>
             <id>jetty</id>

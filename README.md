@@ -28,7 +28,7 @@ docker pull hapiproject/hapi:latest
 docker run -p 8080:8080 hapiproject/hapi:latest
 ```
 
-This will run the docker image with the default configuration, mapping port 8080 from the container to port 8080 in the host. Once running, you can access `http://localhost:8080/` in the browser to access the HAPI FHIR server's UI or use `http://localhost:8080/fhir/` as the base URL for your REST requests.
+This will run the docker image with the default configuration, mapping port 8080 from the container to port 8080 in the host. Once running, you can access `http://localhost:8080/` in the browser to access the HAPI FHIR server's UI or use `http://localhost:8080/hapi-fhir-jpaserver/` as the base URL for your REST requests.
 
 If you change the mapped port, you need to change the configuration used by HAPI to have the correct `hapi.fhir.tester` property/value.
 
@@ -196,14 +196,14 @@ The easiest way to run this server entirely depends on your environment requirem
 mvn -Pjetty spring-boot:run
 ```
 
-The Server will then be accessible at http://localhost:8080/fhir and the CapabilityStatement will be found at http://localhost:8080/fhir/metadata.
+The Server will then be accessible at http://localhost:8080/hapi-fhir-jpaserver and the CapabilityStatement will be found at http://localhost:8080/hapi-fhir-jpaserver/metadata.
 
 ### Using Spring Boot
 ```bash
 mvn spring-boot:run
 ```
 
-The Server will then be accessible at http://localhost:8080/fhir and the CapabilityStatement will be found at http://localhost:8080/fhir/metadata.
+The Server will then be accessible at http://localhost:8080/hapi-fhir-jpaserver and the CapabilityStatement will be found at http://localhost:8080/hapi-fhir-jpaserver/metadata.
 
 If you want to run this server on a different port, you can change the port in the `src/main/resources/application.yaml` file as follows:
 
@@ -230,14 +230,14 @@ The Server will then be accessible at http://localhost:8888/fhir and the Capabil
 ```bash
 mvn clean spring-boot:run -Pboot
 ```
-Server will then be accessible at http://localhost:8080/ and eg. http://localhost:8080/fhir/metadata. Remember to adjust you overlay configuration in the application.yaml to the following:
+Server will then be accessible at http://localhost:8080/ and eg. http://localhost:8080/hapi-fhir-jpaserver/metadata. Remember to adjust you overlay configuration in the application.yaml to the following:
 
 ```yaml
     tester:
       -
           id: home
           name: Local Tester
-          server_address: 'http://localhost:8080/fhir'
+          server_address: 'http://localhost:8080/hapi-fhir-jpaserver'
           refuse_to_fetch_third_party_urls: false
           fhir_version: R4
 ```
@@ -246,14 +246,14 @@ Server will then be accessible at http://localhost:8080/ and eg. http://localhos
 ```bash
 mvn clean package spring-boot:repackage -DskipTests=true -Pboot && java -jar target/ROOT.war
 ```
-Server will then be accessible at http://localhost:8080/ and eg. http://localhost:8080/fhir/metadata. Remember to adjust your overlay configuration in the application.yaml to the following:
+Server will then be accessible at http://localhost:8080/ and eg. http://localhost:8080/hapi-fhir-jpaserver/metadata. Remember to adjust your overlay configuration in the application.yaml to the following:
 
 ```yaml
     tester:
       -
           id: home
           name: Local Tester
-          server_address: 'http://localhost:8080/fhir'
+          server_address: 'http://localhost:8080/hapi-fhir-jpaserver'
           refuse_to_fetch_third_party_urls: false
           fhir_version: R4
 ```
@@ -261,14 +261,14 @@ Server will then be accessible at http://localhost:8080/ and eg. http://localhos
 ```bash
 mvn clean package com.google.cloud.tools:jib-maven-plugin:dockerBuild -Dimage=distroless-hapi && docker run -p 8080:8080 distroless-hapi
 ```
-Server will then be accessible at http://localhost:8080/ and eg. http://localhost:8080/fhir/metadata. Remember to adjust your overlay configuration in the application.yaml to the following:
+Server will then be accessible at http://localhost:8080/ and eg. http://localhost:8080/hapi-fhir-jpaserver/metadata. Remember to adjust your overlay configuration in the application.yaml to the following:
 
 ```yaml
     tester:
       -
           id: home
           name: Local Tester
-          server_address: 'http://localhost:8080/fhir'
+          server_address: 'http://localhost:8080/hapi-fhir-jpaserver'
           refuse_to_fetch_third_party_urls: false
           fhir_version: R4
 ```
@@ -277,14 +277,14 @@ Server will then be accessible at http://localhost:8080/ and eg. http://localhos
 ```bash
 ./build-docker-image.sh && docker run -p 8080:8080 hapi-fhir/hapi-fhir-jpaserver-starter:latest
 ```
-Server will then be accessible at http://localhost:8080/ and eg. http://localhost:8080/fhir/metadata. Remember to adjust your overlay configuration in the application.yaml to the following:
+Server will then be accessible at http://localhost:8080/ and eg. http://localhost:8080/hapi-fhir-jpaserver/metadata. Remember to adjust your overlay configuration in the application.yaml to the following:
 
 ```yaml
     tester:
       -
           id: home
           name: Local Tester
-          server_address: 'http://localhost:8080/fhir'
+          server_address: 'http://localhost:8080/hapi-fhir-jpaserver'
           refuse_to_fetch_third_party_urls: false
           fhir_version: R4
 ```
@@ -394,7 +394,7 @@ Again, browse to the following link to use the server (note that the port 8080 m
 
 [http://localhost:8080/](http://localhost:8080/)
 
-You will then be able to access the JPA server e.g. using http://localhost:8080/fhir/metadata.
+You will then be able to access the JPA server e.g. using http://localhost:8080/hapi-fhir-jpaserver/metadata.
 
 If you would like it to be hosted at eg. hapi-fhir-jpaserver, eg. http://localhost:8080/hapi-fhir-jpaserver/ or http://localhost:8080/hapi-fhir-jpaserver/fhir/metadata - then rename the WAR file to ```hapi-fhir-jpaserver.war``` and adjust the overlay configuration accordingly e.g.
 
