@@ -1,8 +1,8 @@
 #Uncomment the "servlet" and "context-path" lines below to make the fhir endpoint available at /example/path/fhir instead of the default value of /fhir
 server:
 #  servlet:
-#    context-path: /example/path
-  port: 8080
+#  context-path: /hapi-fhir-jpaserver/
+  port: 9081
 #Adds the option to go to eg. http://localhost:8080/actuator/health for seeing the running configuration
 #see https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints
 management:
@@ -34,21 +34,31 @@ spring:
     enabled: false
     baselineOnMigrate: true
     fail-on-missing-locations: false
+#  datasource:
+#    url: 'jdbc:h2:file:./target/database/h2'
+#    #url: jdbc:h2:mem:test_mem
+#    username: sa
+#    password: null
+#    driverClassName: org.h2.Driver
+#    max-active: 15
+
   datasource:
-    url: 'jdbc:h2:file:./target/database/h2'
-    #url: jdbc:h2:mem:test_mem
-    username: sa
-    password: null
-    driverClassName: org.h2.Driver
-    max-active: 15
+    url: 'jdbc:postgresql://localhost:5432/hapi'
+    username: fhirdbowner
+    password: GGARL3BrgEUfy69JeWpDNRFQWKne
+    driverClassName: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate.dialect: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
+      hibernate.search.enabled: false
 
     # database connection pool size
     hikari:
       maximum-pool-size: 10
-  jpa:
-    properties:
-      hibernate.format_sql: false
-      hibernate.show_sql: false
+#  jpa:
+#    properties:
+#      hibernate.format_sql: false
+#      hibernate.show_sql: false
 
       #Hibernate dialect is automatically detected except Postgres and H2.
       #If using H2, then supply the value of ca.uhn.fhir.jpa.model.dialect.HapiFhirH2Dialect
@@ -223,7 +233,7 @@ hapi:
     tester:
       home:
         name: Local Tester
-        server_address: 'http://localhost:8080/hapi-fhir-jpaserver'
+        server_address: 'http://localhost:9081/hapi-fhir-jpaserver/fhir'
         refuse_to_fetch_third_party_urls: false
         fhir_version: R4
       global:
